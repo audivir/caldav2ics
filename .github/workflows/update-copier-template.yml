@@ -1,0 +1,26 @@
+name: Update Copier template
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Monday 06:00 UTC
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v10.0.1
+      - run: uv tool install copier
+      # add copier to path
+      - run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - run: copier update --skip-answered --defaults --trust
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: Update Copier template
+          title: Update Copier template
+          branch: update-copier-template
+          delete-branch: true

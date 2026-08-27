@@ -1,0 +1,41 @@
+name: Release
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.0.1
+        with:
+          python-version: "3.12"
+      - name: Check that the release tag matches the package version
+        if: github.event_name == 'release'
+        env:
+          PROJECT_SLUG: caldav2ics
+        run: |
+          pkg_version="$(uv run --with pdm-backend python -c 'import importlib, os; m = importlib.import_module(os.environ["PROJECT_SLUG"]); print(m.__version__)')"
+          tag_version="${GITHUB_REF_NAME#v}"
+          if [ "$pkg_version" != "$tag_version" ]; then
+            echo "::error::Release tag $GITHUB_REF_NAME (version $tag_version) does not match $PROJECT_SLUG.__version__ ($pkg_version)"
+            exit 1
+          fi
+      - run: uv build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

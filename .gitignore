@@ -1,51 +1,45 @@
-# Wheels
-*.whl
-
-# Coverage files
-.cov*
-!.coveragerc
-htmlcov
-
-# Cache files
-.mypy_cache
-.pytest_cache
-.ruff_cache
-
-# Python file
+# python-generated files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
 *.egg-info
-__pycache__
-build
-dist
+build/
+dist/
+wheels/
 
-# Sphinx files
-/docs/build
-/docs/source/_static/
-/docs/source/_autosummary/
-build
-__pycache__
-*.egg-info
+# build artifacts
+.pdm-build/
+.pdm-python
 
-# VSCode files
-.vscode
+# virtual environments
+.venv/
+venv/
 
-# macOS files
+# test artifacts
+.benchmarks/
+.coverage*
+.pytest_cache/
+
+# lint artifacts
+.mypy_cache/
+.ruff_cache/
+
+# uv
+uv.lock
+.python-version
+
+# editors
+.idea/
+.vscode/
+
+# os
 .DS_Store
-._.DS_Store
-
-# Windows directories
 Thumbs.db
-desktop.ini
 
-# Local files
-input
-output
-wd*
+# environment variables
+.env
+env/
 
-# Notes
-*.idea
-template
-
-# Temporary files
-*.bak
-*.swp
-*.tmp
+# custom exclusions

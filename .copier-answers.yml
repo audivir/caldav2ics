@@ -1,0 +1,11 @@
+# Changes here will be overwritten by Copier
+_commit: e730ed7
+_src_path: gh:audivir/copier-template
+author_email: pypi@audivir.de
+author_name: Tim Hörmann
+description: Cache CalDAV calendars in static .ICS files.
+github_org: audivir
+project_name: caldav2ics
+project_slug: caldav2ics
+project_type: python
+publishable: true
