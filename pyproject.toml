@@ -1,15 +1,10 @@
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
 [project]
 name = "caldav2ics"
-dynamic = ["version"]
 description = "Cache CalDAV calendars in static .ICS files."
-authors = [{ name = "Tim Hörmann", email = "pypi@audivir.de" }]
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = "MIT"
+authors = [{ name = "Tim Hörmann", email = "pypi@audivir.de" }]
 keywords = []
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -28,38 +23,24 @@ dependencies = [
   "requests",
   "typing-extensions",
 ]
+dynamic = ["version"]
 
-[project.optional-dependencies]
+[project.urls]
+Homepage = "https://github.com/audivir/caldav2ics"
+Issues = "https://github.com/audivir/caldav2ics/issues"
+Repository = "https://github.com/audivir/caldav2ics"
 
 [project.scripts]
 caldav2ics = "caldav2ics.cli:main"
 
-[project.urls]
-Homepage = "https://github.com/audivir/caldav2ics"
-Repository = "https://github.com/audivir/caldav2ics"
-Issues = "https://github.com/audivir/caldav2ics/issues"
+[project.optional-dependencies]
 
 [dependency-groups]
-dev = ["mypy", "pytest", "coverage", "prek", "radicale", "ruff"]
+dev = ["coverage", "mypy", "prek", "pytest", "radicale", "ruff"]
 
-[tool.pdm.version]
-source = "file"
-path = "caldav2ics/__init__.py"
-
-[tool.mypy]
-strict = true
-disable_error_code = "import-untyped"
-enable_error_code = """type-arg,no-untyped-def,redundant-cast,redundant-self,comparison-overlap,
-                    no-untyped-call,no-any-return,no-any-unimported,unreachable,deprecated,redundant-expr,
-                    possibly-undefined,truthy-bool,truthy-iterable,ignore-without-code,
-                    unused-awaitable,unused-ignore,explicit-override,unimported-reveal,mutable-override,explicit-any"""
-
-# beyond strict
-warn_unreachable = true
-warn_unused_configs = true
-local_partial_types = true
-
-exclude = ["build", "docs"]
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [tool.coverage.run]
 source = ["tests", "caldav2ics"]
@@ -79,25 +60,37 @@ exclude_also = [
 fail_under = 100
 show_missing = true
 
+[tool.mypy]
+strict = true
+disable_error_code = "import-untyped"
+enable_error_code = """type-arg,no-untyped-def,redundant-cast,redundant-self,comparison-overlap,
+                    no-untyped-call,no-any-return,no-any-unimported,unreachable,deprecated,redundant-expr,
+                    possibly-undefined,truthy-bool,truthy-iterable,ignore-without-code,
+                    unused-awaitable,unused-ignore,explicit-override,unimported-reveal,mutable-override,explicit-any"""
+
+# beyond strict
+warn_unreachable = true
+warn_unused_configs = true
+local_partial_types = true
+
+exclude = ["build", "docs"]
+
+[tool.pdm.version]
+source = "file"
+path = "caldav2ics/__init__.py"
+
 [tool.pytest.ini_options]
-minversion = "8.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
-markers = ["integration: exercises a real local CalDAV server (Radicale)"]
-xfail_strict = true
-log_cli_level = "INFO"
 filterwarnings = [
   "error",
   "ignore::pytest.PytestCacheWarning",
   "ignore::DeprecationWarning",
 ]
+log_cli_level = "INFO"
+markers = ["integration: exercises a real local CalDAV server (Radicale)"]
+minversion = "8.0"
 testpaths = ["tests"]
-
-[tool.vulture]
-ignore_names = ["_*", "unused_*"]
-paths = [".whitelist", "tests", "caldav2ics"]
-make_whitelist = true
-sort_by_size = true
-verbose = false
+xfail_strict = true
 
 [tool.ruff]
 line-length = 100
@@ -109,21 +102,21 @@ select = ["ALL"]
 
 ignore = [
   "CPY001",  # Missing copyright notice at top of file
-  "PLC0415", # `import` should be at the top-level of a file
+  "PLC0415",  # `import` should be at the top-level of a file
   "ISC001",  # implicit-str-concat
   "COM812",  # missing-trailing-comma
-  "S301",    # `pickle` and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue
-  "TD003",   # Missing issue link on the line following this TODO
+  "S301",  # `pickle` and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue
+  "TD003",  # Missing issue link on the line following this TODO
   "FIX002",  # Line contains TODO, consider resolving the issue
   "FBT001",  # Boolean-typed positional argument in function definition
   "FBT002",  # Boolean default positional argument
   "FBT003",  # Boolean positional value in function call
   "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
-  "EM101",   # Exception must not use a string literal, assign to variable first
-  "EM102",   # Exception must not use an f-string literal, assign to variable first
+  "EM101",  # Exception must not use a string literal, assign to variable first
+  "EM102",  # Exception must not use an f-string literal, assign to variable first
   "TRY003",  # Avoid specifying long messages outside the exception class
   "TRY300",  # Use of else blocks in try/except
-  "D105",    # Missing docstring in magic method
+  "D105",  # Missing docstring in magic method
 ]
 
 [tool.ruff.lint.pydocstyle]
@@ -147,3 +140,10 @@ ban-relative-imports = "all"
 # S101: assert, PLR2004: magic value comparison, T20: print statements
 "**/test_*.py" = ["INP001", "PLR2004", "S101", "D101", "D102", "D103", "T20"]
 "tests/**" = ["INP001", "PLR2004", "S101", "D101", "D102", "D103", "T20"]
+
+[tool.vulture]
+ignore_names = ["_*", "unused_*"]
+paths = [".whitelist", "tests", "caldav2ics"]
+make_whitelist = true
+sort_by_size = true
+verbose = false
