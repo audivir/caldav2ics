@@ -68,6 +68,7 @@ repos:
     rev: v1.8.4
     hooks:
       - id: tombi-format
+        exclude: (^|/)Cargo\.lock$
   # markdown formatting
   - repo: https://github.com/executablebooks/mdformat
     rev: 1.0.0
