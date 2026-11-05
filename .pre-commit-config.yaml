@@ -44,7 +44,7 @@ repos:
     rev: v1.5.6
     hooks:
       - id: remove-tabs
-        exclude: ^(docs)|\.go$
+        exclude: ^(docs)|\.go$|(^|/)go\.mod$|(^|/)\.gitmodules$
   # CMake formatting
   - repo: https://github.com/cheshirekow/cmake-format-precommit
     rev: v0.6.13
@@ -65,7 +65,7 @@ repos:
         #  - id: clang-format
   # toml formatting
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.8.4
+    rev: v1.9.8
     hooks:
       - id: tombi-format
         exclude: (^|/)Cargo\.lock$
@@ -80,7 +80,7 @@ repos:
       - id: shellcheck
         files: ^(\.zshrc|\.bashrc|\.env|.*\.sh)$
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.4
+    rev: v0.17.3
     hooks:
       - id: ruff-format
       - id: ruff-check
