@@ -65,7 +65,7 @@ repos:
         #  - id: clang-format
   # toml formatting
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.9.8
+    rev: v1.11.2
     hooks:
       - id: tombi-format
         exclude: (^|/)Cargo\.lock$
@@ -80,7 +80,7 @@ repos:
       - id: shellcheck
         files: ^(\.zshrc|\.bashrc|\.env|.*\.sh)$
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.3
+    rev: v0.17.5
     hooks:
       - id: ruff-format
       - id: ruff-check
